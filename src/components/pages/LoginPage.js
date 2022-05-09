@@ -5,8 +5,33 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import '../styles/LoginPage.css';
 import { Link } from 'react-router-dom';
+import tokenUtils from "../../TokenUtils";
+import {auth} from "../../api";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+
+
+
 
 function LoginPage() {
+
+    const navigate = useNavigate()
+
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [isLoginSuccessful, setIsLoginSuccessful] = useState(true);
+
+    const buttonHandler = () => {
+        auth.login(login,password).then(function (response) {
+            tokenUtils.setToken(response)
+            navigate("/register")
+        }).catch(function (err){
+            setIsLoginSuccessful(false);
+            setError('Użytkownik nie istnieje');
+        })
+    };
+
     return(
         <div className='container'>
             <Header></Header>
@@ -16,8 +41,10 @@ function LoginPage() {
                         <h2>Zaloguj się</h2>
                     </Grid>
                     <Grid align='center' className="btns-container">
-                        <TextField 
-                            label='Nazwa użytkownika' 
+                        <TextField
+                            onChange={(event) => setLogin(event.target.value)}
+                            error={!isLoginSuccessful} helperText={!isLoginSuccessful ? [error] : ""}
+                            label='Nazwa użytkownika'
                             placeholder='Podaj nazwę użytkownika' 
                             variant="filled" 
                             focused={true}
@@ -43,8 +70,10 @@ function LoginPage() {
                                 }
                             }}
                         />
-                        <TextField 
-                            label='Hasło' 
+                        <TextField
+                            onChange={(event) => setPassword(event.target.value)}
+                            error={!isLoginSuccessful}
+                            label='Hasło'
                             placeholder='Podaj hasło' 
                             type='password'
                             variant="filled" 
@@ -71,7 +100,8 @@ function LoginPage() {
                                 }
                             }}
                         />
-                        <Button 
+                        <Button
+                            onClick={buttonHandler}
                             variant="contained" 
                             sx={{ 
                                 marginTop: "4rem", 

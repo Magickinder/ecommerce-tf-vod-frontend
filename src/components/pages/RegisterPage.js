@@ -4,10 +4,38 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import '../styles/RegisterPage.css';
+import {useState} from "react";
+import {auth} from "../../api";
 
 function RegisterPage() {
+
+    const navigate = useNavigate()
+
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+
+    const [error, setError] = useState('')
+    const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(true);
+
+    const buttonHandler = () => {
+
+        const body = {
+            username: login,
+            email: email,
+            password: password,
+        }
+        auth.register(body).then(function (response) {
+            navigate("/");
+        }).catch(function (err) {
+            console.log(err.response)
+            setIsRegisterSuccessful(false);
+            setError(err.response.data);
+        });
+    };
+
     return(
         <Container maxWidth="lm" disableGutters={true}>
             <Header></Header>
@@ -16,7 +44,10 @@ function RegisterPage() {
                     <h2>Zarejestruj się</h2>
                 </Grid>
                 <Grid align='center' className="btns-container">
-                    <TextField 
+                    <TextField
+                        onChange={(event) => setEmail(event.target.value)}
+                        error={!isRegisterSuccessful}
+                        helperText={!isRegisterSuccessful ? [error] : ""}
                         label='E-mail' 
                         placeholder='Podaj e-mail' 
                         variant="filled" 
@@ -42,7 +73,9 @@ function RegisterPage() {
                             }
                         }}
                     />
-                    <TextField 
+                    <TextField
+                        onChange={(event) => setLogin(event.target.value)}
+                        error={!isRegisterSuccessful}
                         label='Nazwa użytkownika' 
                         placeholder='Podaj nazwę użytkownika' 
                         variant="filled" 
@@ -69,7 +102,9 @@ function RegisterPage() {
                             }
                         }}
                     />
-                    <TextField 
+                    <TextField
+                        onChange={(event) => setPassword(event.target.value)}
+                        error={!isRegisterSuccessful}
                         label='Hasło' 
                         placeholder='Podaj hasło' 
                         type='password'
@@ -97,7 +132,8 @@ function RegisterPage() {
                             }
                         }}
                     />
-                    <Button 
+                    <Button
+                        onClick={buttonHandler}
                         variant="contained" 
                         sx={{ 
                             marginTop: "3rem", 
