@@ -7,10 +7,14 @@ import CustomTable from '../CustomTable';
 import '../styles/MoviesMainPage.css';
 import {useEffect, useState} from "react";
 import {movies} from "../../api";
+import {IconButton, ImageList, ImageListItem, ImageListItemBar} from "@mui/material";
+import InfoIcon from '@mui/icons-material/Info';
+import { useNavigate } from 'react-router-dom';
 
 function MoviesMainPage() {
+    let navigate = useNavigate();
 
-    const [tableToRender, setTableToRender] = useState();
+    const [tableToRender, setTableToRender] = useState([]);
 
     useEffect( () => {
         movies.getAll().then(function (response){
@@ -33,7 +37,32 @@ function MoviesMainPage() {
               </Grid>
           </Grid>
           <Grid align="center" sx={{ height: '84.5vh' }}>
-            <CustomTable tableToRender={tableToRender}/>
+              <ImageList sx={{ width: 1000, height: 450, mt:10}}
+                         cols={4}
+                         rowHeight={225}>
+                  {tableToRender.map((row) => (
+                      <ImageListItem key={row.url}>
+                          <img
+                              src={`${row.url}?w=248&fit=crop&auto=format`}
+                              srcSet={`${row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                              alt={row.title}
+                              loading="lazy"
+                          />
+                          <ImageListItemBar
+                              title={row.title}
+                              actionIcon={
+                                  <IconButton
+                                      sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                                      aria-label={`info about`}
+                                      onClick={() => {navigate('/moviePage',{state:{row}})}}
+                                  >
+                                      <InfoIcon />
+                                  </IconButton>
+                              }
+                          />
+                      </ImageListItem>
+                  ))}
+              </ImageList>
           </Grid>
       </Container>
   );
