@@ -8,11 +8,11 @@ import { useState } from 'react';
 import '../styles/MoviesMainPage.css';
 
 function MoviesMainPage() {
-  const [tableToRender, setTableToRender] = useState();
+  const [tableToRender, setTableToRender] = useState("movies");
 
   return(
       <Container maxWidth="lm" disableGutters={true}>
-          <Header setTableToRender={setTableToRender} className="header-container"></Header>
+          <Header tableToRender={tableToRender} setTableToRender={setTableToRender} className="header-container"></Header>
           <Grid align="center" container className="content-container">
               <Grid item xs={6} className='content'>
                 <div className="search-bar">
@@ -24,7 +24,7 @@ function MoviesMainPage() {
               </Grid>
           </Grid>
           <Grid align="center" sx={{ height: '84.5vh' }}>
-            <CustomTable tableToRender={tableToRender}/>
+            <CustomTable tableToRender={tableToRender} setTableToRender={setTableToRender}/>
           </Grid>
       </Container>
   );

@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function CustomTable(props) {
@@ -12,6 +13,14 @@ export default function CustomTable(props) {
 
     function createData(name, description, category, rating) {
         return { name, description, category, rating};
+    }
+
+    function createCategoryData(name) {
+      return { name };
+    }
+
+    function createDirectorData(name, surname) {
+      return { name, surname };
     }
 
     const columns = [
@@ -35,24 +44,158 @@ export default function CustomTable(props) {
           align: "right"
         }
       ];
+
+      const categoriesColumns = [
+        {
+          id: "name",
+          label: "Kategoria"
+        }
+      ]
+
+      const directorsColumns = [
+        {
+          id: "name",
+          label: "Imie"
+        },
+        {
+          id: "surname",
+          label: "Nazwisko"
+        }
+      ]
       
-      const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24),
-        createData('Ice cream sandwich', 237, 9.0, 37),
-        createData('Eclair', 262, 16.0, 24),
-        createData('Cupcake', 305, 3.7, 67),
-        createData('Gingerbread', 356, 16.0, 49),
-        createData('Frozen yoghurt', 159, 6.0, 24),
-        createData('Ice cream sandwich', 237, 9.0, 37),
-        createData('Eclair', 262, 16.0, 24),
-        createData('Cupcake', 305, 3.7, 67),
-        createData('Gingerbread', 356, 16.0, 49),
+      let rows = [
         createData('Frozen yoghurt', 159, 6.0, 24),
         createData('Ice cream sandwich', 237, 9.0, 37),
         createData('Eclair', 262, 16.0, 24),
         createData('Cupcake', 305, 3.7, 67),
         createData('Gingerbread', 356, 16.0, 49)
       ];
+
+      let categoriesRows = [
+        createCategoryData("Akcja"),
+        createCategoryData("Komedia"),
+        createCategoryData("Horror")
+      ];
+
+      let directorsRows = [
+        createDirectorData("Karol", "Wojtyła"),
+        createDirectorData("Tomasz", "Karolak"),
+        createDirectorData("Maciek", "z Klanu")
+      ]
+
+    let toShow;
+    console.log(props.tableToRender); 
+
+    if(props.tableToRender === "movies") {
+      toShow = <>
+                <TableHead>
+                  <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      sx={{ backgroundColor: "#33415C"}}
+                      key={column.id}
+                      align={column.align}
+                      style={{ minWidth: column.minWidth }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => {
+                    return (
+                      <TableRow 
+                          key={row.name} 
+                          onClick={() => {navigate('/moviePage')}}
+                          sx = {{ cursor: "pointer" }}
+                      >
+                      {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align} sx={{ borderBottom: 'none' }}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </>
+    } else if(props.tableToRender === "categories") {
+      toShow = <>
+                <TableHead>
+                  <TableRow>
+                  {categoriesColumns.map((column) => (
+                    <TableCell
+                      sx={{ backgroundColor: "#33415C"}}
+                      key={column.id}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {categoriesRows.map((row) => {
+                    return (
+                      <TableRow 
+                          key={row.name} 
+                          onClick={() => props.setTableToRender("movies")}
+                          sx = {{ cursor: "pointer" }}
+                      >
+                      {categoriesColumns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} sx={{ borderBottom: 'none' }}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </>
+    } else {
+      toShow = <>
+                <TableHead>
+                  <TableRow>
+                  {directorsColumns.map((column) => (
+                    <TableCell
+                      sx={{ backgroundColor: "#33415C"}}
+                      key={column.id}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {directorsRows.map((row) => {
+                    return (
+                      <TableRow 
+                          key={row.name} 
+                          onClick={() => props.setTableToRender("movies")}
+                          sx = {{ cursor: "pointer" }}
+                      >
+                      {directorsColumns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} sx={{ borderBottom: 'none' }}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </>
+    }
 
     return(
         <TableContainer component={Paper}
@@ -88,42 +231,7 @@ export default function CustomTable(props) {
                     }
                   }}
                   aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        sx={{ backgroundColor: "#33415C"}}
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => {
-                      return (
-                        <TableRow 
-                            key={row.name} 
-                            onClick={() => {navigate('/moviePage')}}
-                            sx = {{ cursor: "pointer" }}
-                        >
-                        {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align} sx={{ borderBottom: 'none' }}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                        </TableRow>
-                      )
-                    })}
-                  </TableBody>
+                  {toShow}
                 </Table>
               </TableContainer>
     );
