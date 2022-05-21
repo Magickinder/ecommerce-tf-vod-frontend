@@ -29,7 +29,9 @@ export default function MoviePage() {
                 <Grid className="movie-info-container" align="center">
                     <h2>{movie.row.title}</h2>
                     <p>{movie.row.director.name}</p>
+                    <p>{movie.row.category}</p>
                     <p>{movie.row.description}</p>
+                    <p>{movie.row.rating}</p>
                 </Grid>
             </Grid>
             <Grid className="movie-btns-container">

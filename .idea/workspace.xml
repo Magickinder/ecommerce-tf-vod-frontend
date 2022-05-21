@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0688834d-0b1b-4f5e-80b2-da01b3ffecf0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CustomTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CustomTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/MoviePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/MoviePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/pages/MoviesMainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/MoviesMainPage.js" afterDir="false" />
     </list>
@@ -53,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1653132685644</updated>
-      <workItem from="1653132686760" duration="5504000" />
+      <workItem from="1653132686760" duration="8711000" />
     </task>
     <servers />
   </component>

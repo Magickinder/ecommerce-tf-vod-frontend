@@ -12,13 +12,13 @@ import {movies} from "../api";
 export default function CustomTable(props) {
     let navigate = useNavigate();
 
-    const [tableToRender, setTableToRender] = useState([]);
+    const [tableToRender, setTableToRender] = useState([])
 
-    useEffect( () => {
-        movies.getAll().then(function (response){
-            setTableToRender(response.data)
-        })
-    },[])
+    if(props.tableToRender!==undefined){
+        if(tableToRender.length === 0){
+            setTableToRender(props.tableToRender)
+        }
+    }
 
 
 
