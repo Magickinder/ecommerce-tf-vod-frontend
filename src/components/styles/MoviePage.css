@@ -1,0 +1,67 @@
+* {
+    color: white;
+}
+
+.movie-data-container {
+    width: 100vw;
+    height: 45vh;
+    display: flex;
+    justify-content: space-around;
+}
+
+.movie-image-container {
+    width: 15%;
+    height: 75%;
+    margin-top: 3rem;
+}
+
+.movie-info-container {
+    width: 50%;
+    height: 75%;
+    margin-top: 3rem;
+}
+
+.movie-btns-container {
+    width: 15vw;
+    height: 5vh;
+    margin-left: 10.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.movie-btn {
+    background-color: #5c677d !important;
+    width: 40%;
+    height: 100%;
+    font-weight: 550 !important;
+}
+
+.add-comment-container {
+    width: 100vw;
+    height: 40vh;
+}
+
+.add-comment-bottom-part {
+    width: 51.5%;
+    height: 10%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-comment-bottom-part > p {
+    width: 10%;
+}
+
+.comment-btn {
+    background-color: #5c677d !important;
+    width: 10%;
+    height: 75%;
+    font-weight: 550 !important;
+}
+
+#outlined-multiline-flexible {
+    width: 50vw;
+}

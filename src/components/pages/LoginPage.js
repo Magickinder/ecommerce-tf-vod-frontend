@@ -25,7 +25,7 @@ function LoginPage() {
     const buttonHandler = () => {
         auth.login(login,password).then(function (response) {
             tokenUtils.setToken(response)
-            navigate("/register")
+            navigate("/movies")
         }).catch(function (err){
             setIsLoginSuccessful(false);
             setError('Użytkownik nie istnieje');

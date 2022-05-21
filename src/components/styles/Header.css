@@ -3,9 +3,29 @@ img {
     height: auto;
 }
 
+.header-btns {
+    background-color: #5c677d !important;
+    width: 15%;
+    height: 60%;
+    font-weight: 550 !important;
+    font-size: .95rem;
+}
+
+.header-btns:hover {
+    background-color: #4FB8FF !important;
+}
+
 @media only screen and (max-width: 900px) {
     img {
         width: 20vw;
+        height: auto;
+    }
+}
+
+@media only screen and (max-height: 450px) {
+    
+    img {
+        width: 10vw;
         height: auto;
     }
 }
