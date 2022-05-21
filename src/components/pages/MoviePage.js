@@ -5,19 +5,31 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import "../styles/MoviePage.css";
+import {useLocation} from "react-router-dom";
+
 
 export default function MoviePage() {
+    const {state} = useLocation();
+    const movie = state;
+
+
+
+    console.log(movie.row);
     return(
         <Container maxWidth="lm" disableGutters={true}>
             <Header defaultHeader></Header>
             <Grid container className="movie-data-container">
                 <Paper elevation={5} className="movie-image-container">
-                    
+                    <img
+                        src={`${movie.row.url}?w=248&fit=crop&auto=format`}
+                        srcSet={`${movie.row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        loading="lazy"
+                    />
                 </Paper>
                 <Grid className="movie-info-container" align="center">
-                    <h2>WŁADCA PIERŚCIENI</h2>
-                    <p>10</p>
-                    <p>description</p>
+                    <h2>{movie.row.title}</h2>
+                    <p>{movie.row.director.name}</p>
+                    <p>{movie.row.description}</p>
                 </Grid>
             </Grid>
             <Grid className="movie-btns-container">

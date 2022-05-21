@@ -21,9 +21,18 @@ class Request {
 
 const requests = new Request();
 
+export const movies = {
+    getTitles: () => requests.get('/api/video/title'),
+    getAll: () => requests.get('/api/video/all'),
+    getCategories: () => requests.get('/api/video/categories'),
+    getFiltered: (category) => requests.post('/api/video/filtered',category),
+    getById: (id) => requests.get(`/api/video/${id}`),
+    getFilteredTitles: (category) => requests.post("/api/video/filtered/title", category)
+}
+
 //Przykład
 export const auth = {
     login: (username, password) =>
-        requests.post("/login", { username: username, password: password }),
-    register: (payload) => requests.post("/register", payload),
+        requests.post("/auth/login", { username: username, password: password }),
+    register: (payload) => requests.post("/auth/register", payload),
 };
