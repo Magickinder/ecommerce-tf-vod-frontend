@@ -6,12 +6,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import "../styles/MoviePage.css";
 import {useLocation} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MoviePage(props) {
     const {state} = useLocation();
     const movie = state;
-
+    const navigate = useNavigate()
     return(
         <Container maxWidth="lm" disableGutters={true}>
             <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}></Header>
@@ -34,7 +35,7 @@ export default function MoviePage(props) {
             </Grid>
             <Grid className="movie-btns-container">
                 <Button variant="contained" className="movie-btn"><p style={{ fontSize: ".75rem" }}>Oglądaj</p></Button>
-                <Button variant="contained" className="movie-btn"><p style={{ fontSize: ".75rem" }}>Kup za 20zł</p></Button>
+                <Button onClick={() => {navigate('/checkout')}} variant="contained" className="movie-btn"><p style={{ fontSize: ".75rem" }}>Kup za 20zł</p></Button>
             </Grid>
             <Grid className="add-comment-container" align="center">
                 <TextField

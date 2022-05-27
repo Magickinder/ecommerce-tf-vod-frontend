@@ -12,6 +12,7 @@ const getHeaders = () => ({
 });
 
 
+
 class Request {
     delete = (url) => axios.delete(`${API_URL}${url}`, getHeaders());
     get = (url) => axios.get(`${API_URL}${url}`, getHeaders());
@@ -36,3 +37,7 @@ export const auth = {
         requests.post("/auth/login", { username: username, password: password }),
     register: (payload) => requests.post("/auth/register", payload),
 };
+
+export const payment = {
+    pay: (body) => requests.post('/checkout',body),
+}
