@@ -12,6 +12,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
 
 function MoviesMainPage() {
+
     let navigate = useNavigate();
 
     const [tableToRender, setTableToRender] = useState([]);
@@ -22,6 +23,8 @@ function MoviesMainPage() {
         })
     },[])
 
+
+  //const [tableToRender, setTableToRender] = useState("movies");
 
   return(
       <Container maxWidth="lm" disableGutters={true}>
@@ -63,6 +66,7 @@ function MoviesMainPage() {
                       </ImageListItem>
                   ))}
               </ImageList>
+
           </Grid>
       </Container>
   );

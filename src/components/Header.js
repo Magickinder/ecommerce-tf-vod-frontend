@@ -53,12 +53,13 @@ function Header(props) {
                                         }
                                     }}
                                 >
-                                    <SvgIcon sx={{transition: '.5s'}}>
+                                    <SvgIcon sx={{transition: '.5s'}} onClick={() => props.setTableToRender('movies')}>
                                         <HomeOutlinedIcon/>
                                     </SvgIcon>
                                 </Avatar>
-                                <Button variant="contained" className='header-btns' >Kategorie</Button>
-                                <Button variant="contained" className='header-btns' >Reżyserowie</Button>
+
+                                <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('categories')}>Kategorie</Button>
+                                <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('directors')}>Reżyserowie</Button>
                                 <Button variant="contained" className='header-btns'>Moje konto</Button>
                                 <Button variant="contained" className='header-btns' sx={{ marginRight: "2rem" }}>Pomoc</Button>
                             </Grid>
