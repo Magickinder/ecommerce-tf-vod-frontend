@@ -8,22 +8,20 @@ import "../styles/MoviePage.css";
 import {useLocation} from "react-router-dom";
 
 
-export default function MoviePage() {
+export default function MoviePage(props) {
     const {state} = useLocation();
     const movie = state;
 
-
-
-    console.log(movie.row);
     return(
         <Container maxWidth="lm" disableGutters={true}>
-            <Header defaultHeader></Header>
+            <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}></Header>
             <Grid container className="movie-data-container">
                 <Paper elevation={5} className="movie-image-container">
                     <img
                         src={`${movie.row.url}?w=248&fit=crop&auto=format`}
                         srcSet={`${movie.row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         loading="lazy"
+                        alt="movie"
                     />
                 </Paper>
                 <Grid className="movie-info-container" align="center">

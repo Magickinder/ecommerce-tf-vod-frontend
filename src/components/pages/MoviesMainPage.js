@@ -11,7 +11,7 @@ import {IconButton, ImageList, ImageListItem, ImageListItemBar} from "@mui/mater
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
 
-function MoviesMainPage() {
+function MoviesMainPage(props) {
 
     let navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function MoviesMainPage() {
 
   return(
       <Container maxWidth="lm" disableGutters={true}>
-          <Header tableToRender={tableToRender} setTableToRender={setTableToRender} className="header-container"></Header>
+          <Header tableToRender={tableToRender} setTableToRender={setTableToRender} isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} className="header-container"></Header>
           <Grid align="center" container className="content-container">
               <Grid item xs={6} className='content'>
                 <div className="search-bar">
@@ -40,31 +40,36 @@ function MoviesMainPage() {
               </Grid>
           </Grid>
           <Grid align="center" sx={{ height: '84.5vh' }}>
-              <ImageList sx={{ width: 1000, height: 450, mt:10}}
-                         cols={4}
-                         rowHeight={225}>
-                  {tableToRender.map((row) => (
-                      <ImageListItem key={row.url}>
-                          <img
-                              src={`${row.url}?w=248&fit=crop&auto=format`}
-                              srcSet={`${row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                              alt={row.title}
-                              loading="lazy"
-                          />
-                          <ImageListItemBar
-                              title={row.title}
-                              actionIcon={
-                                  <IconButton
-                                      sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                                      aria-label={`info about`}
-                                      onClick={() => {navigate('/moviePage',{state:{row}})}}
-                                  >
-                                      <InfoIcon />
-                                  </IconButton>
-                              }
-                          />
-                      </ImageListItem>
-                  ))}
+                <ImageList 
+                    sx={{ width: "100vw", height: "100vh", mt: "3rem"}}
+                    cols={5}
+                    rowHeight={500}
+                >
+                    {tableToRender.map((row) => (
+                        <ImageListItem 
+                            key={row.url} 
+                            sx={{ 
+                                margin: "1rem",
+                                transition: ".2s",
+                                cursor: "pointer",
+                                "&:hover": {
+                                    transform: "scale(1.05, 1.05)",
+                                    transition: ".2s"
+                                }
+                            }}
+                            onClick={() => {navigate('/moviePage',{state:{row}})}}
+                        >
+                            <img
+                                src={`${row.url}?w=248&fit=crop&auto=format`}
+                                srcSet={`${row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                alt={row.title}
+                                loading="lazy"
+                            />
+                            <ImageListItemBar
+                                title={row.title}
+                            />
+                        </ImageListItem>
+                    ))}
               </ImageList>
 
           </Grid>

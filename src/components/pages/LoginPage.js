@@ -11,9 +11,7 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 
-
-
-function LoginPage() {
+function LoginPage(props) {
 
     const navigate = useNavigate()
 
@@ -24,7 +22,9 @@ function LoginPage() {
 
     const buttonHandler = () => {
         auth.login(login,password).then(function (response) {
-            tokenUtils.setToken(response)
+            tokenUtils.setToken(response);
+            props.setIsLoggedIn(true);
+            localStorage.setItem("logStatus", true);
             navigate("/mainPage")
         }).catch(function (err){
             setIsLoginSuccessful(false);
@@ -34,7 +34,7 @@ function LoginPage() {
 
     return(
         <div className='container'>
-            <Header></Header>
+            <Header isLoggedIn={props.isLoggedIn}></Header>
             <Grid>
                 <Paper elevation={5} className="login-form-container">
                     <Grid align='center' className="header-container">

@@ -5,7 +5,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {useState, useEffect} from "react";
 import {movies} from "../api";
@@ -21,7 +20,7 @@ export default function CustomTable(props) {
         }
     }
 
-
+    console.log(movies.getAll());
 
     function createData(name, description, category, rating) {
         return { name, description, category, rating};
@@ -70,7 +69,7 @@ export default function CustomTable(props) {
         createDirectorData("Maciek", "z Klanu")
       ]
 
-    let toShow;
+    /*let toShow;
     console.log(props.tableToRender); 
 
     if(props.tableToRender === "movies") {
@@ -182,7 +181,7 @@ export default function CustomTable(props) {
                   })}
                 </TableBody>
               </>
-    }
+    }*/
 
     return(
         <TableContainer component={Paper}
@@ -253,7 +252,7 @@ export default function CustomTable(props) {
                       )
                     )}
                   </TableBody>
-                  {toShow}
+                  
 
                 </Table>
               </TableContainer>

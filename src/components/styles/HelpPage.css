@@ -1,0 +1,9 @@
+.help-container {
+    width: 100vw;
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 1.5rem;
+}

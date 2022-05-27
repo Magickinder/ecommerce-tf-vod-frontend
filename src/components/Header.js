@@ -8,10 +8,13 @@ import Button from '@mui/material/Button';
 import Logo from '../assets/logo.png';
 import SvgIcon from '@mui/material/SvgIcon';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import { useNavigate } from 'react-router-dom';
 
 function Header(props) {
     let header;
-    if(props.defaultHeader) {
+    let navigate = useNavigate();
+
+    if(!props.isLoggedIn) {
         header = <Box sx={{ flexGrow: 1 }}>
                     <AppBar 
                         position="static" 
@@ -53,7 +56,9 @@ function Header(props) {
                                         }
                                     }}
                                 >
-                                    <SvgIcon sx={{transition: '.5s'}} onClick={() => props.setTableToRender('movies')}>
+                                    <SvgIcon sx={{transition: '.5s'}} onClick={() => {
+                                        navigate("/mainPage");
+                                    }}>
                                         <HomeOutlinedIcon/>
                                     </SvgIcon>
                                 </Avatar>
@@ -61,7 +66,12 @@ function Header(props) {
                                 <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('categories')}>Kategorie</Button>
                                 <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('directors')}>Reżyserowie</Button>
                                 <Button variant="contained" className='header-btns'>Moje konto</Button>
-                                <Button variant="contained" className='header-btns' sx={{ marginRight: "2rem" }}>Pomoc</Button>
+                                <Button variant="contained" className='header-btns' onClick={() => navigate("/helpPage")}>Pomoc</Button>
+                                <Button variant="contained" className='header-btns' sx={{ marginRight: "2rem" }} onClick={() => {
+                                    props.setIsLoggedIn(false);
+                                    localStorage.removeItem("logStatus");
+                                    navigate("/");
+                                }}>Wyloguj</Button>
                             </Grid>
                         </Grid>
                     </AppBar>
