@@ -6,68 +6,155 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useNavigate } from 'react-router-dom';
+import {ImageList, ImageListItem, ImageListItemBar} from "@mui/material";
 import {useState, useEffect} from "react";
 import {movies} from "../api";
+import { SettingsBackupRestoreOutlined } from '@mui/icons-material';
 
 export default function CustomTable(props) {
     let navigate = useNavigate();
 
-    const [tableToRender, setTableToRender] = useState([])
+    const [moviesList, setMoviesList] = useState([]);
+    const [categoriesList, setCategoriesList] = useState([]);
 
-    if(props.tableToRender!==undefined){
-        if(tableToRender.length === 0){
-            setTableToRender(props.tableToRender)
-        }
-    }
+    useEffect( () => {
+      if(props.tableToRender === "movies") {
+        movies.getAll().then(function (response){
+          setMoviesList(response.data.filter((item) => {
 
-    console.log(movies.getAll());
+            if(item.title !== "" && item.url !== "") {
+              return item;
+            }
+          }));
+        });
+      } else if(props.tableToRender === "categories") {
+        movies.getCategories().then(function (response){
+          setCategoriesList(response.data)
+        });
+      }
+    }, [props.tableToRender])
 
-    function createData(name, description, category, rating) {
-        return { name, description, category, rating};
-    }
+    let toShow;
 
-    function createCategoryData(name) {
-      return { name };
-    }
-
-    function createDirectorData(name, surname) {
-      return { name, surname };
-    }
-
-    const columns = [
+    if(props.tableToRender === "movies") {
+      toShow = <ImageList 
+                    sx={{ width: "100vw", height: "80vh", mt: "3rem"}}
+                    cols={5}
+                    rowHeight={500}
+                >
+                {moviesList.map((row) => (
+                    <ImageListItem 
+                        key={row.url} 
+                        sx={{ 
+                            margin: "1rem",
+                            transition: ".2s",
+                            cursor: "pointer",
+                            "&:hover": {
+                                transform: "scale(1.05, 1.05)",
+                                transition: ".2s"
+                            }
+                        }}
+                        onClick={() => {navigate('/moviePage',{state:{row}})}}
+                    >
+                        <img
+                            src={`${row.url}?w=248&fit=crop&auto=format`}
+                            srcSet={`${row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={row.title}
+                            loading="lazy"
+                        />
+                        <ImageListItemBar
+                            title={row.title}
+                        />
+                    </ImageListItem>
+                ))}
+              </ImageList>
+    } else if(props.tableToRender === "directors") {
+      const columns = [
         { 
-          id: "title",
-          label: "Nazwa filmu" 
-        },
-        {
-          id: "description",
-          label: "Opis",
-          align: "right"
-        },
-        {
-          id: "category",
-          label: "Kategoria",
-          align: "right"
-        },
-        {
-          id: "rating",
-          label: "Ocena",
-          align: "right"
+          id: "name",
+          label: "Imię i nazwisko" 
         }
       ];
 
 
-      let categoriesRows = [
-        createCategoryData("Akcja"),
-        createCategoryData("Komedia"),
-        createCategoryData("Horror")
+    } else if(props.tableToRender === "categories") {
+      const columns = [
+        { 
+          id: "name",
+          label: "Kategoria" 
+        }
       ];
 
-      let directorsRows = [
-        createDirectorData("Karol", "Wojtyła"),
-        createDirectorData("Tomasz", "Karolak"),
-        createDirectorData("Maciek", "z Klanu")
-      ]
+      toShow = <TableContainer component={Paper}
+                sx={{
+                  width: "50%",
+                  height: "100%",
+                  bgcolor: "#33415C",
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none',
+                  overflowY: 'scroll',
+
+                  '&::-webkit-scrollbar': {
+                    display: 'none'
+                  }
+                }}
+              >
+                <Table 
+                  stickyHeader={true}
+                  sx={{ 
+                    bgColor: '#33415C', 
+                    '& td, th': { 
+                      color: 'white'
+                    }, 
+                    '& th': {
+                      fontWeight: 'bold'
+                    },
+                    '& tr:nth-child(2n)': {
+                      backgroundColor: '#5c677d'
+                    },
+                    '& tr:hover': {
+                      backgroundColor: "#4FB8FF",
+                      opacity: ".75"
+                    }
+                  }}
+                  aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        sx={{ backgroundColor: "#33415C"}}
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {categoriesList.map((row) => (
+                        <TableRow
+                            key={row}
+                            onClick={() => {navigate('/moviePage',{state:{row}})}}
+                            sx = {{ cursor: "pointer" }}
+                        >
+                        {columns.map((column) => {
+                        return (
+                          <TableCell key={column.id} sx={{ borderBottom: 'none' }}>
+                            {row}
+                          </TableCell>
+                        );
+                      })}
+                        </TableRow>
+                      )
+                    )}
+                  </TableBody>
+                  
+
+                </Table>
+              </TableContainer>
+    }
 
     /*let toShow;
     console.log(props.tableToRender); 
@@ -183,14 +270,14 @@ export default function CustomTable(props) {
               </>
     }*/
 
-    return(
+    /*return(
         <TableContainer component={Paper}
                 sx={{
                   width: "50%",
                   height: "100%",
                   bgcolor: "#33415C",
-                  msOverflowStyle: 'none', /* for Internet Explorer, Edge */
-                  scrollbarWidth: 'none', /* for Firefox */
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none',
                   overflowY: 'scroll',
 
                   '&::-webkit-scrollbar': {
@@ -256,5 +343,11 @@ export default function CustomTable(props) {
 
                 </Table>
               </TableContainer>
-    );
+    );*/
+
+    return(
+      <>
+        {toShow}
+      </>
+    )
 }

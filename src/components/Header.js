@@ -57,6 +57,7 @@ function Header(props) {
                                     }}
                                 >
                                     <SvgIcon sx={{transition: '.5s'}} onClick={() => {
+                                        props.setTableToRender("movies");
                                         navigate("/mainPage");
                                     }}>
                                         <HomeOutlinedIcon/>

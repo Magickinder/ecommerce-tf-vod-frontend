@@ -7,21 +7,24 @@ import CustomTable from '../CustomTable';
 import '../styles/MoviesMainPage.css';
 import {useEffect, useState} from "react";
 import {movies} from "../../api";
-import {IconButton, ImageList, ImageListItem, ImageListItemBar} from "@mui/material";
-import InfoIcon from '@mui/icons-material/Info';
+import {ImageList, ImageListItem, ImageListItemBar} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 function MoviesMainPage(props) {
 
     let navigate = useNavigate();
 
-    const [tableToRender, setTableToRender] = useState([]);
+    const [tableToRender, setTableToRender] = useState("movies");
 
-    useEffect( () => {
+    /*useEffect( () => {
         movies.getAll().then(function (response){
             setTableToRender(response.data)
         })
-    },[])
+    },[])*/
+
+    /*useEffect(() => {
+        setTableToRender("movies");
+    }, []);*/
 
 
   //const [tableToRender, setTableToRender] = useState("movies");
@@ -40,38 +43,7 @@ function MoviesMainPage(props) {
               </Grid>
           </Grid>
           <Grid align="center" sx={{ height: '84.5vh' }}>
-                <ImageList 
-                    sx={{ width: "100vw", height: "100vh", mt: "3rem"}}
-                    cols={5}
-                    rowHeight={500}
-                >
-                    {tableToRender.map((row) => (
-                        <ImageListItem 
-                            key={row.url} 
-                            sx={{ 
-                                margin: "1rem",
-                                transition: ".2s",
-                                cursor: "pointer",
-                                "&:hover": {
-                                    transform: "scale(1.05, 1.05)",
-                                    transition: ".2s"
-                                }
-                            }}
-                            onClick={() => {navigate('/moviePage',{state:{row}})}}
-                        >
-                            <img
-                                src={`${row.url}?w=248&fit=crop&auto=format`}
-                                srcSet={`${row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                alt={row.title}
-                                loading="lazy"
-                            />
-                            <ImageListItemBar
-                                title={row.title}
-                            />
-                        </ImageListItem>
-                    ))}
-              </ImageList>
-
+                <CustomTable tableToRender={tableToRender}></CustomTable>
           </Grid>
       </Container>
   );
