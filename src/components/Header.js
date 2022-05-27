@@ -57,6 +57,7 @@ function Header(props) {
                                         <HomeOutlinedIcon/>
                                     </SvgIcon>
                                 </Avatar>
+
                                 <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('categories')}>Kategorie</Button>
                                 <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('directors')}>Reżyserowie</Button>
                                 <Button variant="contained" className='header-btns'>Moje konto</Button>
