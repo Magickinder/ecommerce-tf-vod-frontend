@@ -57,6 +57,9 @@ function Header(props) {
                                     }}
                                 >
                                     <SvgIcon sx={{transition: '.5s'}} onClick={() => {
+                                        console.log(localStorage.getItem("category"));
+                                        localStorage.removeItem("category");
+                                        console.log(localStorage.getItem("category"));
                                         props.setTableToRender("movies");
                                         navigate("/mainPage");
                                     }}>
@@ -64,8 +67,14 @@ function Header(props) {
                                     </SvgIcon>
                                 </Avatar>
 
-                                <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('categories')}>Kategorie</Button>
-                                <Button variant="contained" className='header-btns' onClick={() => props.setTableToRender('directors')}>Reżyserowie</Button>
+                                <Button variant="contained" className='header-btns' onClick={() => {
+                                    props.setTableToRender('categories');
+                                    navigate("/mainPage");
+                                }}>Kategorie</Button>
+                                <Button variant="contained" className='header-btns' onClick={() => {
+                                    props.setTableToRender('directors');
+                                    navigate("/mainPage");
+                                }}>Reżyserowie</Button>
                                 <Button variant="contained" className='header-btns'>Moje konto</Button>
                                 <Button variant="contained" className='header-btns' onClick={() => navigate("/helpPage")}>Pomoc</Button>
                                 <Button variant="contained" className='header-btns' sx={{ marginRight: "2rem" }} onClick={() => {

@@ -23,7 +23,14 @@ export default function CustomTable(props) {
           setMoviesList(response.data.filter((item) => {
 
             if(item.title !== "" && item.url !== "") {
-              return item;
+              console.log(localStorage.getItem("category"), item.category);
+              if(localStorage.getItem("category")) {
+                if(localStorage.getItem("category") === item.category) {
+                  return item;
+                }
+              } else {
+                return item;
+              }
             }
           }));
         });
@@ -32,7 +39,7 @@ export default function CustomTable(props) {
           setCategoriesList(response.data)
         });
       }
-    }, [props.tableToRender])
+    }, [props.tableToRender, localStorage.getItem("category")])
 
     let toShow;
 
@@ -136,7 +143,11 @@ export default function CustomTable(props) {
                     {categoriesList.map((row) => (
                         <TableRow
                             key={row}
-                            onClick={() => {navigate('/moviePage',{state:{row}})}}
+                            onClick={() => {
+                              console.log(row);
+                              localStorage.setItem("category", row);
+                              props.setTableToRender("movies");
+                            }}
                             sx = {{ cursor: "pointer" }}
                         >
                         {columns.map((column) => {
@@ -155,195 +166,6 @@ export default function CustomTable(props) {
                 </Table>
               </TableContainer>
     }
-
-    /*let toShow;
-    console.log(props.tableToRender); 
-
-    if(props.tableToRender === "movies") {
-      toShow = <>
-                <TableHead>
-                  <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      sx={{ backgroundColor: "#33415C"}}
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => {
-                    return (
-                      <TableRow 
-                          key={row.name} 
-                          onClick={() => {navigate('/moviePage')}}
-                          sx = {{ cursor: "pointer" }}
-                      >
-                      {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align} sx={{ borderBottom: 'none' }}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </>
-    } else if(props.tableToRender === "categories") {
-      toShow = <>
-                <TableHead>
-                  <TableRow>
-                  {categoriesColumns.map((column) => (
-                    <TableCell
-                      sx={{ backgroundColor: "#33415C"}}
-                      key={column.id}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {categoriesRows.map((row) => {
-                    return (
-                      <TableRow 
-                          key={row.name} 
-                          onClick={() => props.setTableToRender("movies")}
-                          sx = {{ cursor: "pointer" }}
-                      >
-                      {categoriesColumns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} sx={{ borderBottom: 'none' }}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </>
-    } else {
-      toShow = <>
-                <TableHead>
-                  <TableRow>
-                  {directorsColumns.map((column) => (
-                    <TableCell
-                      sx={{ backgroundColor: "#33415C"}}
-                      key={column.id}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {directorsRows.map((row) => {
-                    return (
-                      <TableRow 
-                          key={row.name} 
-                          onClick={() => props.setTableToRender("movies")}
-                          sx = {{ cursor: "pointer" }}
-                      >
-                      {directorsColumns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} sx={{ borderBottom: 'none' }}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </>
-    }*/
-
-    /*return(
-        <TableContainer component={Paper}
-                sx={{
-                  width: "50%",
-                  height: "100%",
-                  bgcolor: "#33415C",
-                  msOverflowStyle: 'none',
-                  scrollbarWidth: 'none',
-                  overflowY: 'scroll',
-
-                  '&::-webkit-scrollbar': {
-                    display: 'none'
-                  }
-                }}
-              >
-                <Table 
-                  stickyHeader={true}
-                  sx={{ 
-                    bgColor: '#33415C', 
-                    '& td, th': { 
-                      color: 'white'
-                    }, 
-                    '& th': {
-                      fontWeight: 'bold'
-                    },
-                    '& tr:nth-child(2n)': {
-                      backgroundColor: '#5c677d'
-                    },
-                    '& tr:hover': {
-                      backgroundColor: "#4FB8FF",
-                      opacity: ".75"
-                    }
-                  }}
-                  aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        sx={{ backgroundColor: "#33415C"}}
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {tableToRender.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            onClick={() => {navigate('/moviePage',{state:{row}})}}
-                            sx = {{ cursor: "pointer" }}
-                        >
-                        {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align} sx={{ borderBottom: 'none' }}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                        </TableRow>
-                      )
-                    )}
-                  </TableBody>
-                  
-
-                </Table>
-              </TableContainer>
-    );*/
 
     return(
       <>

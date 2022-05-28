@@ -13,9 +13,10 @@ export default function MoviePage(props) {
     const {state} = useLocation();
     const movie = state;
     const navigate = useNavigate()
+    
     return(
         <Container maxWidth="lm" disableGutters={true}>
-            <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}></Header>
+            <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} tableToRender={props.tableToRender} setTableToRender={props.setTableToRender}></Header>
             <Grid container className="movie-data-container">
                 <Paper elevation={5} className="movie-image-container">
                     <img
