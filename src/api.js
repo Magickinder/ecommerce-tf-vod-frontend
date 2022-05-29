@@ -28,7 +28,8 @@ export const movies = {
     getCategories: () => requests.get('/api/video/categories'),
     getFiltered: (category) => requests.post('/api/video/filtered',category),
     getById: (id) => requests.get(`/api/video/${id}`),
-    getFilteredTitles: (category) => requests.post("/api/video/filtered/title", category)
+    getFilteredTitles: (category) => requests.post("/api/video/filtered/title", category),
+    getDirectors: () => requests.get('/api/director/name')
 }
 
 //Przykład

@@ -57,9 +57,8 @@ function Header(props) {
                                     }}
                                 >
                                     <SvgIcon sx={{transition: '.5s'}} onClick={() => {
-                                        console.log(localStorage.getItem("category"));
                                         localStorage.removeItem("category");
-                                        console.log(localStorage.getItem("category"));
+                                        localStorage.removeItem("director");
                                         props.setTableToRender("movies");
                                         navigate("/mainPage");
                                     }}>

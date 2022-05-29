@@ -9,23 +9,25 @@ import { useNavigate } from 'react-router-dom';
 import {ImageList, ImageListItem, ImageListItemBar} from "@mui/material";
 import {useState, useEffect} from "react";
 import {movies} from "../api";
-import { SettingsBackupRestoreOutlined } from '@mui/icons-material';
 
 export default function CustomTable(props) {
     let navigate = useNavigate();
 
     const [moviesList, setMoviesList] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
+    const [directorsList, setDirectorsList] = useState([]);
 
     useEffect( () => {
       if(props.tableToRender === "movies") {
         movies.getAll().then(function (response){
           setMoviesList(response.data.filter((item) => {
-
             if(item.title !== "" && item.url !== "") {
-              console.log(localStorage.getItem("category"), item.category);
               if(localStorage.getItem("category")) {
                 if(localStorage.getItem("category") === item.category) {
+                  return item;
+                }
+              } else if(localStorage.getItem("director")) {
+                if(localStorage.getItem("director") === item.director.name) {
                   return item;
                 }
               } else {
@@ -36,10 +38,14 @@ export default function CustomTable(props) {
         });
       } else if(props.tableToRender === "categories") {
         movies.getCategories().then(function (response){
-          setCategoriesList(response.data)
+          setCategoriesList(response.data);
+        });
+      } else if(props.tableToRender === "directors") {
+        movies.getDirectors().then(function (response) {
+          setDirectorsList(response.data);
         });
       }
-    }, [props.tableToRender, localStorage.getItem("category")])
+    }, [props.tableToRender, localStorage.getItem("category"), localStorage.getItem("director")])
 
     let toShow;
 
@@ -83,7 +89,79 @@ export default function CustomTable(props) {
         }
       ];
 
+      toShow = toShow = <TableContainer component={Paper}
+                sx={{
+                  width: "50%",
+                  height: "100%",
+                  bgcolor: "#33415C",
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none',
+                  overflowY: 'scroll',
 
+                  '&::-webkit-scrollbar': {
+                    display: 'none'
+                  }
+                }}
+              >
+                <Table 
+                  stickyHeader={true}
+                  sx={{ 
+                    bgColor: '#33415C', 
+                    '& td, th': { 
+                      color: 'white'
+                    }, 
+                    '& th': {
+                      fontWeight: 'bold'
+                    },
+                    '& tr:nth-child(2n)': {
+                      backgroundColor: '#5c677d'
+                    },
+                    '& tr:hover': {
+                      backgroundColor: "#4FB8FF",
+                      opacity: ".75"
+                    }
+                  }}
+                  aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        sx={{ backgroundColor: "#33415C"}}
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {directorsList.map((row) => (
+                        <TableRow
+                            key={row}
+                            onClick={() => {
+                              localStorage.removeItem("category");
+                              localStorage.setItem("director", row);
+                              props.setTableToRender("movies");
+                            }}
+                            sx = {{ cursor: "pointer" }}
+                        >
+                        {columns.map((column) => {
+                        return (
+                          <TableCell key={column.id} sx={{ borderBottom: 'none' }}>
+                            {row}
+                          </TableCell>
+                        );
+                      })}
+                        </TableRow>
+                      )
+                    )}
+                  </TableBody>
+                  
+
+                </Table>
+              </TableContainer>
     } else if(props.tableToRender === "categories") {
       const columns = [
         { 
@@ -144,7 +222,7 @@ export default function CustomTable(props) {
                         <TableRow
                             key={row}
                             onClick={() => {
-                              console.log(row);
+                              localStorage.removeItem("director");
                               localStorage.setItem("category", row);
                               props.setTableToRender("movies");
                             }}
