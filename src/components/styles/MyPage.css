@@ -1,0 +1,12 @@
+.user-info-container {
+    width: 50vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-info-container > p {
+    margin-left: 1rem;
+}

@@ -1,0 +1,29 @@
+.comment-container {
+    background-color: #57637d !important;
+    max-width: 50%;
+    min-width: 50%;
+    min-height: 20vh;
+    margin-top: 1rem;
+}
+
+.comment-top-container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 50rem;
+}
+
+.user-rate-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-message {
+    width: 98%;
+    text-align: left;
+    margin-top: 1rem;
+    background-color: green;
+}

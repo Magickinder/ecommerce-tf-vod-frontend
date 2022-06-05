@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import {ImageList, ImageListItem, ImageListItemBar} from "@mui/material";
 import {useState, useEffect} from "react";
 import {movies} from "../api";
+import { users } from "../api";
 
 export default function CustomTable(props) {
     let navigate = useNavigate();
@@ -31,21 +32,37 @@ export default function CustomTable(props) {
                   return item;
                 }
               } else {
-                return item;
+                if (item.title.includes(props.searchData)) {
+                  return item;
+                }
               }
             }
           }));
         });
       } else if(props.tableToRender === "categories") {
         movies.getCategories().then(function (response){
-          setCategoriesList(response.data);
+          setCategoriesList(response.data.filter(category => {
+            if (category.includes(props.searchData)) {
+              return category;
+            }
+          }));
         });
       } else if(props.tableToRender === "directors") {
         movies.getDirectors().then(function (response) {
-          setDirectorsList(response.data);
+          setDirectorsList(response.data.filter(director => {
+            if (director.includes(props.searchData)) {
+              return director;
+            }
+          }));
         });
       }
-    }, [props.tableToRender, localStorage.getItem("category"), localStorage.getItem("director")])
+    }, [props.tableToRender, localStorage.getItem("category"), localStorage.getItem("director"), props.searchData]);
+
+    useEffect( () => {
+      if(props.getUserMovies === true) {
+        users.getUserMovies().then(response => console.log(response));
+      }
+    }, []);
 
     let toShow;
 
@@ -92,11 +109,12 @@ export default function CustomTable(props) {
       toShow = toShow = <TableContainer component={Paper}
                 sx={{
                   width: "50%",
-                  height: "100%",
+                  height: "95%",
                   bgcolor: "#33415C",
                   msOverflowStyle: 'none',
                   scrollbarWidth: 'none',
                   overflowY: 'scroll',
+                  marginTop: "2rem",
 
                   '&::-webkit-scrollbar': {
                     display: 'none'
@@ -173,11 +191,12 @@ export default function CustomTable(props) {
       toShow = <TableContainer component={Paper}
                 sx={{
                   width: "50%",
-                  height: "100%",
+                  height: "95%",
                   bgcolor: "#33415C",
                   msOverflowStyle: 'none',
                   scrollbarWidth: 'none',
                   overflowY: 'scroll',
+                  marginTop: "2rem",
 
                   '&::-webkit-scrollbar': {
                     display: 'none'

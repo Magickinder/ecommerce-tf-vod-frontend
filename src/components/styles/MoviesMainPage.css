@@ -3,12 +3,13 @@
 }
 
 .content-container {
-    height: 5vh;
+    height: 6vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .content {
@@ -22,8 +23,8 @@
     justify-content: space-between;
     border: .1rem solid #4FB8FF;
     border-radius: .2rem;
-    width: 20%;
-    margin: 1rem 0 1rem 0;
+    width: 10%;
+    margin: 1.9rem 0 1rem 0;
 }
 
 .search-bar input {

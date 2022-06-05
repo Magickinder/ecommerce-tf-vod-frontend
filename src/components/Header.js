@@ -47,21 +47,26 @@ function Header(props) {
                                         width: "3.5%", 
                                         height: "62%", 
                                         cursor: "pointer",
-
+                                        
                                         '&:hover': {
-                                            '& .MuiSvgIcon-root': {
+                                            '& .MuiSvgIcon-root > * ': {
                                                 color: '#4FB8FF',
                                                 transition: '.2s'
-                                            }   
+                                            }
                                         }
                                     }}
+                                    onClick={() => {
+                                            localStorage.removeItem("category");
+                                            localStorage.removeItem("director");
+                                            props.setTableToRender("movies");
+                                            navigate("/mainPage");
+                                        }}
                                 >
-                                    <SvgIcon sx={{transition: '.5s'}} onClick={() => {
-                                        localStorage.removeItem("category");
-                                        localStorage.removeItem("director");
-                                        props.setTableToRender("movies");
-                                        navigate("/mainPage");
-                                    }}>
+                                    <SvgIcon 
+                                        sx={{
+                                            transition: '.5s'
+                                        }}
+                                    >
                                         <HomeOutlinedIcon/>
                                     </SvgIcon>
                                 </Avatar>
@@ -74,9 +79,10 @@ function Header(props) {
                                     props.setTableToRender('directors');
                                     navigate("/mainPage");
                                 }}>Reżyserowie</Button>
-                                <Button variant="contained" className='header-btns'>Moje konto</Button>
+                                <Button variant="contained" className='header-btns' onClick={() => navigate("/myPage")}>Moje konto</Button>
                                 <Button variant="contained" className='header-btns' onClick={() => navigate("/helpPage")}>Pomoc</Button>
                                 <Button variant="contained" className='header-btns' sx={{ marginRight: "2rem" }} onClick={() => {
+                                    console.log(props);
                                     props.setIsLoggedIn(false);
                                     localStorage.removeItem("logStatus");
                                     navigate("/");

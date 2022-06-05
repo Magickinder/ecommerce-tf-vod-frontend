@@ -7,12 +7,31 @@ import TextField from '@mui/material/TextField';
 import "../styles/MoviePage.css";
 import {useLocation} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import StarIcon from '@mui/icons-material/Star';
+import SvgIcon from '@mui/material/SvgIcon';
+import {useState, useEffect} from "react";
+import CommentContainer from "../CommentContainer";
+import {users} from "../../api";
+import {comments} from "../../api";
+
+import axios from 'axios';
 
 
 export default function MoviePage(props) {
     const {state} = useLocation();
+    const [userData, setUserData] = useState([]);
+    const [message, setMessage] = useState("");
+    const [rate, setRate] = useState(1);
     const movie = state;
     const navigate = useNavigate()
+
+    const sendComment = () => {
+        users.getLoggedUser().then(function(response) {
+            comments.addComment(movie.row.id, response.data.id, message).then(response => console.log(response));
+        });
+
+        //comments.addRate(movie.row.id, rate).then(response => console.log(response));
+    }
     
     return(
         <Container maxWidth="lm" disableGutters={true}>
@@ -20,6 +39,7 @@ export default function MoviePage(props) {
             <Grid container className="movie-data-container">
                 <Paper elevation={5} className="movie-image-container">
                     <img
+                        className="movie-image"
                         src={`${movie.row.url}?w=248&fit=crop&auto=format`}
                         srcSet={`${movie.row.url}?w=248&fit=crop&auto=format&dpr=2 2x`}
                         loading="lazy"
@@ -28,10 +48,20 @@ export default function MoviePage(props) {
                 </Paper>
                 <Grid className="movie-info-container" align="center">
                     <h2>{movie.row.title}</h2>
-                    <p>{movie.row.director.name}</p>
-                    <p>{movie.row.category}</p>
+                    <p><b>Reżyser: {movie.row.director.name}</b></p>
+                    <p><b>{movie.row.category}</b></p>
                     <p>{movie.row.description}</p>
-                    <p>{movie.row.rating}</p>
+                    <p className="movie-rating-container">
+                        <SvgIcon sx={{transition: '.5s'}} onClick={() => {
+                            localStorage.removeItem("category");
+                            localStorage.removeItem("director");
+                            props.setTableToRender("movies");
+                            navigate("/mainPage");
+                        }}>
+                            <StarIcon/>
+                        </SvgIcon>
+                        {movie.row.rating}
+                    </p>
                 </Grid>
             </Grid>
             <Grid className="movie-btns-container">
@@ -54,11 +84,31 @@ export default function MoviePage(props) {
                             borderColor: '#4FB8FF !important'
                         }
                     }}
+                    onChange={(event) => setMessage(event.target.value)}
                 />
                 <Grid className="add-comment-bottom-part">
-                    <p>Rating</p>
-                    <Button variant="contained" className="comment-btn"><p style={{ fontSize: ".75rem" }}>Opublikuj</p></Button>
+                    <Grid className="movie-comment-rate-container">
+                        <SvgIcon>
+                            <StarIcon/>
+                        </SvgIcon>
+                        <select className="movie-rate-select" onChange={(event) => setRate(event.target.value)}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </Grid>
+                    <Button variant="contained" className="comment-btn" onClick={sendComment}><p style={{ fontSize: ".7rem" }}>Opublikuj</p></Button>
                 </Grid>
+            </Grid>
+            <Grid className="movie-comments-container" align="center">
+                    
             </Grid>
         </Container>
     );

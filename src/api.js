@@ -32,6 +32,18 @@ export const movies = {
     getDirectors: () => requests.get('/api/director/name')
 }
 
+export const users = {
+    getLoggedUser: () => requests.get('/api/user'),
+    getUserMovies: () => requests.get('/api/user/videos')
+}
+
+export const comments = {
+    addComment: (videoID, userID, message) =>
+        requests.post(`/api/comments/video/${videoID}/user/${userID}`, message),
+    addRate: (videoID, rate) =>
+        requests.post(`/api/comments/video/${videoID}/rating/${rate}`)
+}
+
 //Przykład
 export const auth = {
     login: (username, password) =>
