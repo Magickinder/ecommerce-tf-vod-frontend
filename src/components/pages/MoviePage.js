@@ -66,7 +66,7 @@ export default function MoviePage(props) {
             </Grid>
             <Grid className="movie-btns-container">
                 <Button variant="contained" className="movie-btn"><p style={{ fontSize: ".75rem" }}>Oglądaj</p></Button>
-                <Button onClick={() => {navigate('/checkout')}} variant="contained" className="movie-btn"><p style={{ fontSize: ".75rem" }}>Kup za 20zł</p></Button>
+                <Button onClick={() => {navigate('/checkout', {state:{movie}})}} variant="contained" className="movie-btn"><p style={{ fontSize: ".75rem" }}>Kup za 20zł</p></Button>
             </Grid>
             <Grid className="add-comment-container" align="center">
                 <TextField

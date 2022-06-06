@@ -5,6 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import "../styles/Payment.css";
 import {movies, payment} from "../../api";
+import {useLocation} from "react-router-dom";
 
 
 // Make sure to call loadStripe outside of a component’s render to avoid
@@ -17,9 +18,12 @@ const stripePromise = loadStripe("pk_test_51AROWSJX9HHJ5bycpEUP9dK39tXufyuWogSUd
 export default function Payment() {
     const [clientSecret, setClientSecret] = useState("");
 
+    const {state} = useLocation();
+    const movie = state;
+
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        payment.pay().then(function (response){
+        payment.pay(movie.movie.row.id).then(function (response){
             setClientSecret(response.data)
         })
     }, []);
