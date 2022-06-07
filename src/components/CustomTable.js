@@ -17,6 +17,7 @@ export default function CustomTable(props) {
     const [moviesList, setMoviesList] = useState([]);
     const [categoriesList, setCategoriesList] = useState([]);
     const [directorsList, setDirectorsList] = useState([]);
+    const [userMovies, setUserMovies] = useState([]);
 
     useEffect( () => {
       if(props.tableToRender === "movies") {
@@ -60,19 +61,20 @@ export default function CustomTable(props) {
 
     useEffect( () => {
       if(props.getUserMovies === true) {
-        users.getUserMovies().then(response => console.log(response));
+        users.getUserMovies().then(response => setUserMovies(response.data));
       }
     }, []);
 
     let toShow;
+    let downloadedMovies = props.getUserMovies === true ? userMovies : moviesList;
 
-    if(props.tableToRender === "movies") {
+    if(props.tableToRender === "movies" || props.getUserMovies === true) {
       toShow = <ImageList 
                     sx={{ width: "100vw", height: "80vh", mt: "3rem"}}
                     cols={5}
                     rowHeight={500}
                 >
-                {moviesList.map((row) => (
+                {downloadedMovies.map((row) => (
                     <ImageListItem 
                         key={row.url} 
                         sx={{ 

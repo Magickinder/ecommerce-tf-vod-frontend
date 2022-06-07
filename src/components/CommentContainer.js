@@ -8,7 +8,7 @@ export default function CommentContainer(props) {
     return(
         <Paper elevation={5} className="comment-container">
             <div className="comment-top-container">
-                <p className="user-name">User: {props.username}</p>
+                <p className="user-name">Uzytkownik: {props.username}</p>
                 <div className="user-rate-container">
                     <SvgIcon>
                         <StarIcon/>

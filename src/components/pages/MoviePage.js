@@ -72,7 +72,7 @@ export default function MoviePage(props) {
                         }}>
                             <StarIcon/>
                         </SvgIcon>
-                        {movie.row.rating}
+                        {(movie.row.rating).toFixed(2)}
                     </p>
                 </Grid>
             </Grid>

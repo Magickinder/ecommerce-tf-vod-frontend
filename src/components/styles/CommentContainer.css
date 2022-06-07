@@ -3,7 +3,7 @@
     max-width: 50%;
     min-width: 50%;
     min-height: 20vh;
-    margin-top: 1rem;
+    margin: .5rem 0 3rem 0;
 }
 
 .comment-top-container {
@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    gap: 47rem;
+    gap: 44rem;
 }
 
 .user-rate-container {
