@@ -12,7 +12,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    gap: 50rem;
+    gap: 47rem;
 }
 
 .user-rate-container {
@@ -22,8 +22,7 @@
 }
 
 .comment-message {
-    width: 98%;
+    width: 96%;
     text-align: left;
     margin-top: 1rem;
-    background-color: green;
 }

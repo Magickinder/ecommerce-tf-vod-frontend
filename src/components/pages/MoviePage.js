@@ -12,7 +12,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import {useState, useEffect} from "react";
 import CommentContainer from "../CommentContainer";
 import {users} from "../../api";
-import {comments} from "../../api";
+import { comments } from "../../api";
 
 import axios from 'axios';
 
@@ -22,16 +22,28 @@ export default function MoviePage(props) {
     const [userData, setUserData] = useState([]);
     const [message, setMessage] = useState("");
     const [rate, setRate] = useState(1);
+    const [videoComments, setVideoComments] = useState([]);
     const movie = state;
     const navigate = useNavigate()
 
     const sendComment = () => {
-        users.getLoggedUser().then(function(response) {
+        /*users.getLoggedUser().then(function(response) {
             comments.addComment(movie.row.id, response.data.id, message).then(response => console.log(response));
         });
 
-        //comments.addRate(movie.row.id, rate).then(response => console.log(response));
+        comments.addRate(movie.row.id, rate).then(response => console.log(response));*/
+
+        comments.getVideoComments(movie.row.id).then(response => setVideoComments(response.data));
+        console.log(videoComments);
     }
+
+    useEffect( () => {
+        comments.getVideoComments(movie.row.id).then(response => setVideoComments(response.data));
+    }, []);
+
+    videoComments.map((val) => {
+        console.log(val.comment);
+    });
     
     return(
         <Container maxWidth="lm" disableGutters={true}>
@@ -108,7 +120,9 @@ export default function MoviePage(props) {
                 </Grid>
             </Grid>
             <Grid className="movie-comments-container" align="center">
-                    
+                {videoComments.map((obj) => {
+                    return <CommentContainer username={obj.user.username} comment={obj.comment}></CommentContainer>
+                })}
             </Grid>
         </Container>
     );
