@@ -40,10 +40,8 @@ export const users = {
 export const comments = {
     getVideoComments: (videoID) =>
         requests.get(`/api/comments/video/${videoID}`),
-    addComment: (videoID, userID, message) =>
-        requests.post(`/api/comments/video/${videoID}/user/${userID}`, message),
-    addRate: (videoID, rate) =>
-        requests.post(`/api/comments/video/${videoID}/rating/${rate}`)
+    addComment: (videoID, userID, message, rate) =>
+        requests.post(`/api/comments/video/${videoID}/user/${userID}`, {message, rate}),
 }
 
 //Przykład

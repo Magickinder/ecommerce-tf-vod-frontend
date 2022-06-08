@@ -27,14 +27,9 @@ export default function MoviePage(props) {
     const navigate = useNavigate()
 
     const sendComment = () => {
-        /*users.getLoggedUser().then(function(response) {
-            comments.addComment(movie.row.id, response.data.id, message).then(response => console.log(response));
+        users.getLoggedUser().then(function(response) {
+            comments.addComment(movie.row.id, response.data.id, message, rate).then(response => console.log(response));
         });
-
-        comments.addRate(movie.row.id, rate).then(response => console.log(response));*/
-
-        comments.getVideoComments(movie.row.id).then(response => setVideoComments(response.data));
-        console.log(videoComments);
     }
 
     useEffect( () => {

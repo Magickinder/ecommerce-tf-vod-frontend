@@ -8,6 +8,7 @@ import HelpPage from './components/pages/HelpPage';
 import React, { useState } from 'react';
 import Payment from "./components/pages/Payment";
 import MyPage from './components/pages/MyPage';
+import PaymentSuccess from './components/pages/PaymentSuccess';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("logStatus") || false);
@@ -24,6 +25,7 @@ function App() {
           <Route path='/helpPage' element={<HelpPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} tableToRender={tableToRender} setTableToRender={setTableToRender}/>}/>
           <Route path='/checkout' element={<Payment/>}/>
           <Route path='/myPage' element={<MyPage isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} tableToRender={tableToRender} setTableToRender={setTableToRender}/>}/>
+          <Route path='/successPage' element={<PaymentSuccess />}/>
         </Routes>
       </Router>
     </div>

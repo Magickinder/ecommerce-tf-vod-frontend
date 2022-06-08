@@ -5,6 +5,8 @@ import {
     useElements
 } from "@stripe/react-stripe-js";
 
+import "../styles/CheckoutForm.css";
+
 function CheckoutForm() {
     const stripe = useStripe();
     const elements = useElements();
@@ -58,7 +60,7 @@ function CheckoutForm() {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: "http://localhost:3000",
+                return_url: "http://localhost:3000/successPage",
             },
         });
 
@@ -77,16 +79,19 @@ function CheckoutForm() {
     };
 
     return (
-        <form id="payment-form" onSubmit={handleSubmit}>
-            <PaymentElement id="payment-element" />
-            <button disabled={isLoading || !stripe || !elements} id="submit">
-        <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
-        </span>
-            </button>
-            {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
-        </form>
+        <div className="payment-main-container">
+            <p><b>Wprowadź dane do płatności</b></p>
+            <form id="payment-form" onSubmit={handleSubmit} className="payment-container">
+                <PaymentElement id="payment-element"/>
+                <button disabled={isLoading || !stripe || !elements} id="submit">
+            <span id="button-text">
+            {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+            </span>
+                </button>
+                {/* Show any error or success messages */}
+                {message && <div id="payment-message">{message}</div>}
+            </form>
+        </div>
     );
 
 }
