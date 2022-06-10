@@ -40,7 +40,7 @@ function RegisterPage() {
         <Container maxWidth="lm" disableGutters={true}>
             <Header></Header>
             <Paper elevation={5} className="register-form-container">
-                <Grid align='center' className="header-container" sx={{ height: "15%" }}> 
+                <Grid align='center' className="header-container" sx={{ height: "17%" }}>
                     <h2>Zarejestruj się</h2>
                 </Grid>
                 <Grid align='center' className="btns-container">
