@@ -14,17 +14,14 @@ import CommentContainer from "../CommentContainer";
 import {users} from "../../api";
 import { comments } from "../../api";
 
-import axios from 'axios';
-
 
 export default function MoviePage(props) {
     const {state} = useLocation();
-    const [userData, setUserData] = useState([]);
     const [message, setMessage] = useState("");
     const [rate, setRate] = useState(1);
     const [videoComments, setVideoComments] = useState([]);
     const movie = state;
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const sendComment = () => {
         users.getLoggedUser().then(function(response) {
@@ -33,12 +30,8 @@ export default function MoviePage(props) {
     }
 
     useEffect( () => {
-        comments.getVideoComments(movie.row.id).then(response => setVideoComments(response.data));
+        comments.getVideoComments(movie.row.id).then(response => { console.log(response); setVideoComments(response.data) });
     }, []);
-
-    videoComments.map((val) => {
-        console.log(val.comment);
-    });
     
     return(
         <Container maxWidth="lm" disableGutters={true}>

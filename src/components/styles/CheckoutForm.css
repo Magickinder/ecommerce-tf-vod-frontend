@@ -1,7 +1,3 @@
-* {
-    overflow: hidden;
-}
-
 .payment-main-container {
     width: 100vw;
     height: 100vh;
@@ -15,10 +11,18 @@
     font-size: 1.5rem;
 }
 
-.payment-container {
+#payment-form {
     height: 40vh;
+}
+
+#payment-form div {
+    overflow: hidden;
 }
 
 #payment-element {
     height: 65%;
+}
+
+#payment-element div {
+    color: white;
 }

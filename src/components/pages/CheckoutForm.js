@@ -81,7 +81,7 @@ function CheckoutForm() {
     return (
         <div className="payment-main-container">
             <p><b>Wprowadź dane do płatności</b></p>
-            <form id="payment-form" onSubmit={handleSubmit} className="payment-container">
+            <form id="payment-form" onSubmit={handleSubmit}>
                 <PaymentElement id="payment-element"/>
                 <button disabled={isLoading || !stripe || !elements} id="submit">
             <span id="button-text">

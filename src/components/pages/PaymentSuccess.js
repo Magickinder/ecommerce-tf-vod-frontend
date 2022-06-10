@@ -22,6 +22,7 @@ export default function PaymentSuccess() {
                 <CheckIcon/>
             </SvgIcon>
             <p>Płatność powiodła się! Za {timer} sekund zostaniesz przeniesiony na stronę główną.</p>
+            <p className="success-redirect" onClick={() => navigate("/mainPage")}>Jeśli automatyczne przeniesienie nie zadziałało, kliknij tutaj by przejść na stronę główną.</p>
         </div>
     );
 }
