@@ -24,7 +24,6 @@ function LoginPage(props) {
         auth.login(login,password).then(function (response) {
             tokenUtils.setToken(response);
             props.setIsLoggedIn(true);
-            localStorage.setItem("logStatus", true);
             navigate("/mainPage")
         }).catch(function (err){
             setIsLoginSuccessful(false);

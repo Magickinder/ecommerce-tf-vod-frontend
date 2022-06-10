@@ -5,10 +5,11 @@ import RegisterPage from './components/pages/RegisterPage';
 import MoviesMainPage from './components/pages/MoviesMainPage';
 import MoviePage from './components/pages/MoviePage';
 import HelpPage from './components/pages/HelpPage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Payment from "./components/pages/Payment";
 import MyPage from './components/pages/MyPage';
 import PaymentSuccess from './components/pages/PaymentSuccess';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("logStatus") || false);
