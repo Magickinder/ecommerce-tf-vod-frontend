@@ -13,7 +13,7 @@ export default function CommentContainer(props) {
                     <SvgIcon>
                         <StarIcon/>
                     </SvgIcon>
-                    <p className="user-rating">10</p>
+                    <p className="user-rating">{props.rating}</p>
                 </div>
             </div>
             <div className="comment-message">

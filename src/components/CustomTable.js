@@ -86,6 +86,7 @@ export default function CustomTable(props) {
                                 transition: ".2s"
                             }
                         }}
+
                         onClick={() => {navigate('/moviePage',{state:{row}})}}
                     >
                         <img
