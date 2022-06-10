@@ -25,7 +25,11 @@ export default function MoviePage(props) {
 
     const sendComment = () => {
         users.getLoggedUser().then(function(response) {
-            comments.addComment(movie.row.id, response.data.id, message, rate).then(response => console.log(response));
+            const body = {
+                text: message,
+                rating: rate
+            }
+            comments.addComment(movie.row.id, response.data.id, body ).then(response => console.log(response));
         });
     }
 
