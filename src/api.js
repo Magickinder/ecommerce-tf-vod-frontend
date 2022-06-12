@@ -53,4 +53,5 @@ export const auth = {
 
 export const payment = {
     pay: (body) => requests.post(`/checkout/${body}`),
+    success: (body) => requests.post(`/bought/${body}`),
 }

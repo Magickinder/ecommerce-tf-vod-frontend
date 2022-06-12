@@ -6,10 +6,12 @@ import {
 } from "@stripe/react-stripe-js";
 
 import "../styles/CheckoutForm.css";
+import {payment} from "../../api";
 
-function CheckoutForm() {
+function CheckoutForm(param) {
     const stripe = useStripe();
     const elements = useElements();
+
 
     const [message, setMessage] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +32,7 @@ function CheckoutForm() {
         stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
             switch (paymentIntent.status) {
                 case "succeeded":
+                    payment.success(param.data);
                     setMessage("Payment succeeded!");
                     break;
                 case "processing":
