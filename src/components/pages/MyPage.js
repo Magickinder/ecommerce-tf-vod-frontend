@@ -22,9 +22,10 @@ export default function MyPage(props) {
             <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} tableToRender={props.tableToRender} setTableToRender={props.setTableToRender}></Header>
             <Container maxWidth="lm" disableGutters={true} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop: "2rem" }}>
                 <div className="user-info-container">
-                    <p>Informacje o użytkowniku:</p>
-                    <p>Nazwa użytkownika: {username}</p>
-                    <p>E-mail: {userEmail}</p>
+                    <p><b>Nazwa użytkownika:</b></p>
+                    <p>{username}</p>
+                    <p><b>E-mail:</b></p>
+                    <p>{userEmail}</p>
                 </div>
                 <Grid align="center" sx={{ height: '60vh' }}>
                     <CustomTable getUserMovies={true}></CustomTable>

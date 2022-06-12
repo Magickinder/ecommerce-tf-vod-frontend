@@ -33,7 +33,7 @@ export default function CustomTable(props) {
                   return item;
                 }
               } else {
-                if (item.title.includes(props.searchData)) {
+                if (item.title.toLowerCase().includes(props.searchData)) {
                   return item;
                 }
               }
@@ -43,7 +43,7 @@ export default function CustomTable(props) {
       } else if(props.tableToRender === "categories") {
         movies.getCategories().then(function (response){
           setCategoriesList(response.data.filter(category => {
-            if (category.includes(props.searchData)) {
+            if (category.toLowerCase().includes(props.searchData)) {
               return category;
             }
           }));
@@ -51,7 +51,7 @@ export default function CustomTable(props) {
       } else if(props.tableToRender === "directors") {
         movies.getDirectors().then(function (response) {
           setDirectorsList(response.data.filter(director => {
-            if (director.includes(props.searchData)) {
+            if (director.toLowerCase().includes(props.searchData)) {
               return director;
             }
           }));
@@ -63,7 +63,7 @@ export default function CustomTable(props) {
       if(props.getUserMovies === true) {
         users.getUserMovies().then(response => setUserMovies(response.data));
       }
-    }, []);
+    }, []);   
 
     let toShow;
     let downloadedMovies = props.getUserMovies === true ? userMovies : moviesList;

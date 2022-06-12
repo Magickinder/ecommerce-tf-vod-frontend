@@ -9,4 +9,6 @@
 
 .user-info-container > p {
     margin-left: 1rem;
+    margin-top: .35rem;
+    font-size: 1.3rem;
 }

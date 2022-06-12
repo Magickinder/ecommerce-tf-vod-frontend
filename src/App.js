@@ -9,11 +9,18 @@ import React, { useEffect, useState } from 'react';
 import Payment from "./components/pages/Payment";
 import MyPage from './components/pages/MyPage';
 import PaymentSuccess from './components/pages/PaymentSuccess';
+import tokenUtils from "./TokenUtils";
 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("logStatus") || false);
   const [tableToRender, setTableToRender] = useState("movies");
+
+  useEffect( () => {
+    if(tokenUtils.getToken() !== null) {
+      setIsLoggedIn(true);
+    }
+  })
 
   return (
     <div className='app'>
